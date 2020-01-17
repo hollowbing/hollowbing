@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>陈炎彬</title>
+  
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://hollowbing.github.io/"/>
+  <updated>2020-01-17T13:26:40.732Z</updated>
+  <id>https://hollowbing.github.io/</id>
+  
+  <author>
+    <name>chenyanbin</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>我喜欢的歌，分享给大家</title>
+    <link href="https://hollowbing.github.io/2020/01/15/music/"/>
+    <id>https://hollowbing.github.io/2020/01/15/music/</id>
+    <published>2020-01-15T07:16:16.631Z</published>
+    <updated>2020-01-17T13:26:40.732Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="音乐" scheme="https://hollowbing.github.io/categories/%E9%9F%B3%E4%B9%90/"/>
+    
+    
+      <category term="音乐" scheme="https://hollowbing.github.io/tags/%E9%9F%B3%E4%B9%90/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>The Soul</title>
+    <link href="https://hollowbing.github.io/2020/01/13/The%20Soul/"/>
+    <id>https://hollowbing.github.io/2020/01/13/The%20Soul/</id>
+    <published>2020-01-13T12:07:28.000Z</published>
+    <updated>2020-01-15T16:02:33.650Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;##第一章&lt;/p&gt;
+&lt;p&gt;第一章&lt;/p&gt;
+&lt;p&gt;2016年3月11日，央京。&lt;/p&gt;
+&lt;p&gt;“叮铃铃……”&lt;/p&gt;
+&lt;p&gt;秦瓷在围裙上擦了擦手，走过去接起电话——电话这玩意儿，在末世后可算是奢侈品了，&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="前端" scheme="https://hollowbing.github.io/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+      <category term="HTML" scheme="https://hollowbing.github.io/categories/%E5%89%8D%E7%AB%AF/HTML/"/>
+    
+    
+      <category term="随笔" scheme="https://hollowbing.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="HTML" scheme="https://hollowbing.github.io/tags/HTML/"/>
+    
+      <category term="前端" scheme="https://hollowbing.github.io/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="https://hollowbing.github.io/2020/01/13/hello-world/"/>
+    <id>https://hollowbing.github.io/2020/01/13/hello-world/</id>
+    <published>2020-01-13T12:00:59.760Z</published>
+    <updated>2020-01-15T16:03:10.769Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="前端" scheme="https://hollowbing.github.io/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+      <category term="HTML" scheme="https://hollowbing.github.io/categories/%E5%89%8D%E7%AB%AF/HTML/"/>
+    
+    
+      <category term="HTML" scheme="https://hollowbing.github.io/tags/HTML/"/>
+    
+      <category term="前端" scheme="https://hollowbing.github.io/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+  </entry>
+  
+</feed>
