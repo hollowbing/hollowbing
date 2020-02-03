@@ -6,7 +6,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    Hello World |  陈炎彬
+    web中请求路径的问题 |  陈炎彬
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -33,7 +33,7 @@
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article id="post-hello-world" class="article article-type-post" itemscope
+  <article id="post-web_route" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -41,7 +41,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  Hello World
+  web中请求路径的问题
 </h1>
   
 
@@ -50,8 +50,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/01/13/hello-world/" class="article-date">
-  <time datetime="2020-01-13T12:00:59.760Z" itemprop="datePublished">2020-01-13</time>
+      <a href="/2020/02/02/web_route/" class="article-date">
+  <time datetime="2020-02-02T12:07:28.000Z" itemprop="datePublished">2020-02-02</time>
 </a>
       
   <div class="article-category">
@@ -65,7 +65,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">73字</span>
+            <span class="post-count">243字</span>
         </span>
     </span>
 
@@ -85,8 +85,6 @@
 
     
     
-    <div class="tocbot"></div>
-
 
 
 
@@ -100,20 +98,21 @@
       
 
       
-      <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+      <p>##绝对路径</p>
+<p>这个就不多说了，直接url就行了</p>
+<hr>
+<p>##相对路径</p>
+<p>分为两种 以/开头和不以/开头</p>
 <a id="more"></a>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<p>###以/开头的分为  </p>
+<p>前台路径（在jsp出现的）和后台路径（在java代码里和配置文件里出现的）</p>
+<p>前台路径的参照路径为 web服务器的根 <a href="http://127.0.0.1:8080" target="_blank" rel="noopener">http://127.0.0.1:8080</a></p>
+<p>后台路径的参照路径为 web应用的根 <a href="http://127.0.0.1:8080/springMVC" target="_blank" rel="noopener">http://127.0.0.1:8080/springMVC</a></p>
+<p>###不以/开头的</p>
+<p>参照路径为当前访问路径为 <a href="http://127.0.0.1:8080/springMVC/hello.do去掉hello.do" target="_blank" rel="noopener">http://127.0.0.1:8080/springMVC/hello.do去掉hello.do</a><br>（response.sendRedirect(“welcome.jsp”)）不能加/</p>
+<p>不带斜杠的相对路径问题的解决方案<br>当相对路径出现多级时  加上  /项目名称 可以解决问题</p>
+<p>&lt;%<br>String path = request.getContextPath();<br>String basePath = request.getSchem()+”://“+request.getServerName()+”:”+request.getServerPort()+path+”/“;<br>%&gt;<br>在head标签里加上base标签 <base href="<%=basePath%>"/><br>base标签会自动在当前页面的不以斜杠开头的路径前加上basePath路径，使其变为绝对路径</p>
 
       
       <!-- 打赏 -->
@@ -124,7 +123,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hollowbing.github.io/2020/01/13/hello-world/" data-id="ck5ihw5gp0000scukbmm5huqt"
+      <a data-url="https://hollowbing.github.io/2020/02/02/web_route/" data-id="ck66h2q400002wouk01f74hq7"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML/" rel="tag">HTML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li></ul>
@@ -137,15 +136,11 @@
   
   <nav class="article-nav">
     
-      <a href="/2020/01/13/The%20Soul/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            The Soul
-          
-        </div>
-      </a>
     
+      <a href="/2020/02/02/music/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">这该死的音乐</div>
+      </a>
     
   </nav>
 
@@ -212,7 +207,7 @@
 <script src="https://www.wenjunjiang.win/js/gitment.js"></script>
 <script>
 var gitment = new Gitment({
-  id: "https://hollowbing.github.io/2020/01/13/hello-world/index.html",
+  id: "https://hollowbing.github.io/2020/02/02/web_route/index.html",
   owner: 'hollowbing',
   repo: 'hollowbing.github.io',
   oauth: {
@@ -246,7 +241,7 @@ gitment.render('gitment-ctn')
         c.step ? c.step-- : (c.step = g, c.prefixP < l.length ? (c.prefixP >= 0 && (c.text += l[c.prefixP]), c.prefixP++) : "forward" === c.direction ? c.skillP < t.length ? (c.text += t[c.skillP], c.skillP++) : c.delay ? c.delay-- : (c.direction = "backward", c.delay = a) : c.skillP > 0 ? (c.text = c.text.slice(0, -1), c.skillP--) : (c.skillI = (c.skillI + 1) % o.length, c.direction = "forward")), r.textContent = c.text, r.appendChild(n(c.prefixP < l.length ? Math.min(s, s + c.prefixP) : Math.min(s, t.length - c.skillP))), setTimeout(i, d)
       }
       var l = "",
-      o = ["山隐隐绕天涯怎觅青鸾信","水茫茫淹海角难寻锦鲤书"].map(function (r) {
+      o = ["停车坐爱枫林晚","霜叶红于二月花"].map(function (r) {
       return r + ""
       }),
       a = 2,
@@ -281,7 +276,7 @@ gitment.render('gitment-ctn')
           Powered by
         
         
-        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/" target="_blank">cyb</a>
+        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/hollowbing/" target="_blank">cyb</a>
         
       </li>
     </ul>
@@ -307,7 +302,7 @@ gitment.render('gitment-ctn')
 <script>
     var now = new Date();
     function createtime() {
-        var grt= new Date("18/01/2020 2:13:21");//此处修改你的建站时间或者网站上线时间
+        var grt= new Date("02/01/2020 2:13:21");//此处修改你的建站时间或者网站上线时间
         now.setTime(now.getTime()+250);
         days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
         hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
@@ -335,7 +330,7 @@ setInterval("createtime()",250);
 <nav class="navbar">
   
   <div class="logo">
-    <a href="/"><img src="/images/logo.jpg" alt="陈炎彬"></a>
+    <a href="/"><img src="/images/logo.png" alt="陈炎彬"></a>
   </div>
   
   <ul class="nav nav-main">
@@ -357,7 +352,7 @@ setInterval("createtime()",250);
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="http://shenyu-vip.lofter.com" target="_blank" rel="noopener">摄影</a>
+      <a class="nav-item-link" href="https://pixabay.com/zh/accounts/media/" target="_blank" rel="noopener">摄影</a>
     </li>
     
     <li class="nav-item">
@@ -398,13 +393,13 @@ setInterval("createtime()",250);
   <div class="reward-box">
     
     <div class="reward-item">
-      <img class="reward-img" src="/images/alipay.jpg">
+      <img class="reward-img" src="/images/alipay.png">
       <span class="reward-type">支付宝</span>
     </div>
     
     
     <div class="reward-item">
-      <img class="reward-img" src="/images/wechat.jpg">
+      <img class="reward-img" src="/images/wechat.png">
       <span class="reward-type">微信</span>
     </div>
     

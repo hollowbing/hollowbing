@@ -1,11 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>我喜欢的歌，分享给大家</title>
-    <url>/2020/01/15/music/</url>
+    <title>web中请求路径的问题</title>
+    <url>/2020/02/02/web_route/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>##绝对路径</p>
+<p>这个就不多说了，直接url就行了</p>
+<hr>
+<p>##相对路径</p>
+<p>分为两种 以/开头和不以/开头</p>
+<a id="more"></a>
+
+<p>###以/开头的分为  </p>
+<p>前台路径（在jsp出现的）和后台路径（在java代码里和配置文件里出现的）</p>
+<p>前台路径的参照路径为 web服务器的根 <a href="http://127.0.0.1:8080" target="_blank" rel="noopener">http://127.0.0.1:8080</a></p>
+<p>后台路径的参照路径为 web应用的根 <a href="http://127.0.0.1:8080/springMVC" target="_blank" rel="noopener">http://127.0.0.1:8080/springMVC</a></p>
+<p>###不以/开头的</p>
+<p>参照路径为当前访问路径为 <a href="http://127.0.0.1:8080/springMVC/hello.do去掉hello.do" target="_blank" rel="noopener">http://127.0.0.1:8080/springMVC/hello.do去掉hello.do</a><br>（response.sendRedirect(“welcome.jsp”)）不能加/</p>
+<p>不带斜杠的相对路径问题的解决方案<br>当相对路径出现多级时  加上  /项目名称 可以解决问题</p>
+<p>&lt;%<br>String path = request.getContextPath();<br>String basePath = request.getSchem()+”://“+request.getServerName()+”:”+request.getServerPort()+path+”/“;<br>%&gt;<br>在head标签里加上base标签 <base href="<%=basePath%>"/><br>base标签会自动在当前页面的不以斜杠开头的路径前加上basePath路径，使其变为绝对路径</p>
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>HTML</category>
+      </categories>
+      <tags>
+        <tag>HTML</tag>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>这该死的音乐</title>
+    <url>/2020/02/02/music/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>##&lt;每日一曲&gt;</p>
 
-    <div id="aplayer-woHjOgfs" class="aplayer aplayer-tag-marker meting-tag-marker"
+    <div id="aplayer-QiUFWNAd" class="aplayer aplayer-tag-marker meting-tag-marker"
          data-id="1400397460" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"
     ></div>
 
@@ -15,121 +43,6 @@
       </categories>
       <tags>
         <tag>音乐</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>The Soul</title>
-    <url>/2020/01/13/The%20Soul/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>##第一章</p>
-<p>第一章</p>
-<p>2016年3月11日，央京。</p>
-<p>“叮铃铃……”</p>
-<p>秦瓷在围裙上擦了擦手，走过去接起电话——电话这玩意儿，在末世后可算是奢侈品了，</p>
-<a id="more"></a>
-<p>也就是秦瓷家那口子挂着两杠一星，还有变异雷系异能，在央京基地很得领导层看重，家里这才用得上。</p>
-<p>接起电话，的正是秦瓷的丈夫彭应杭。</p>
-<p>“喂，瓷瓷。”</p>
-<p>听到他的声音，秦瓷笑得眉眼弯弯：“哎，怎么了？”</p>
-<p>电话那头，彭应杭站在基地总部大楼的高层向下看，心中的犹豫与不忍通通被站在高处的压服，他面无表情，语气却温柔异常：“瓷瓷，我今天没法回去吃饭了呢，你能不能给我送来，我不想吃食堂的东西……”最后一句竟有些撒娇的意思。</p>
-<p>秦瓷被他逗笑，却有些犹豫：“你们大楼那儿人来人往的，我又不好遮着脸，就怕……”</p>
-<p>彭应杭心一痛，秦瓷真的是个好女人，容貌是美得过分，但跟他的时候才十九岁，清清白白的女孩子。末日里也没条件办婚礼，就是去户籍处登记了一下，请了他异能队里的几个兄弟简单吃顿饭，就算结婚了。</p>
-<p>婚后秦瓷一直安安分分地呆在家里，从来十指不沾阳春水的小姑娘却为他洗手作羹汤，家务样样都学了起来。因为她容貌的缘故，如非要事，她从不出门，即便出门，也庶得严严实实的。</p>
-<p>两人结婚整整三年，她都是如此。</p>
-<p>从现在温婉可人的秦瓷身上，再看不到三年前那个骄傲乖张的少女模样。</p>
-<p>但是，一想到那些功劳不如自己，能力不如自己，如今却挂着将衔的二代三代们，彭应杭强压下了心中那份不忍，继续劝说妻子：“不怕，中午大家都在餐厅食堂吃饭，你坐专用电梯到43楼，路上不会碰到其他人的。”</p>
-<p>“嗯，好的。”这还是两人婚后第一次他让自己送午饭去，听他这样说，秦瓷也没有多想，很快便答应了他。</p>
-<p>等秦瓷打包好午饭出门时，刚好在楼道里碰上了对门住的陈大姐。陈大姐一见她这浑身上下包裹得严严实实只露一双眼睛的模样，就知道她是要出门。</p>
-<p>“小秦，怎么今天想起要出门了？”陈大姐有些好奇，平时秦瓷除了每个月发放生活必需品的日子会出门，基本上都是大门不出二门不迈。</p>
-<p>秦瓷提了提手中的保温壶，略带些羞涩地笑道：“应杭在单位，我给他送午饭去。”</p>
-<p>陈大姐一拍手：“这可是巧了！我家那个就在楼下等着呢，今天开了车回来，载我去市场那边。刚好你们应杭在总部大楼，顺路，你就跟我一道坐车去吧！”</p>
-<p>陈大姐的丈夫刚好也姓陈，在军需部工作，也是异能宅在军需部里头职位不低，这才能偶尔开着车回家，公车私用一回。</p>
-<p>陈大姐是个热心肠，和秦瓷做了三年邻居，见她一个年纪轻轻的小姑娘，生得如花似玉，人却本分又老实，心里着实是喜欢。平时有事没事就喜欢来找秦瓷说话，能帮得上忙的甚至不需要秦瓷开口，她自己就热情地问开了。</p>
-<p>如今的央京治安绝对说不上好，她虽然遮住了脸，可难保路上不出什么意外，能坐车当然是最好的，秦瓷连忙应了：“哎，好，谢谢大姐了。”</p>
-<p>“你这丫头真是的，跟你大姐大哥还客气什么呢！”陈大姐嗔怪了一句，拉过秦瓷一只手，便牵着她下楼去了。</p>
-<p>陈大哥开的车时部队里最普通的军绿色越野车，不管是末日前还是末日后，央京的路况都不好，刚好车上三人都不需要赶时间，所以陈大哥开得不快。</p>
-<p>路过央京第一大街时，空荡荡的路面上有一群人格外显眼——那是一群年轻人，衣着是末世中少见的精致整洁，每个人都那样意气风发，眉眼间是隐藏不住的春风得意与高傲不羁。</p>
-<p>秦瓷透过车窗，直愣愣地盯着那群人中唯一的女孩子，也是被众邪月般环绕在中央的女孩，眼睛一点一点失去了焦距。</p>
-<hr>
-<p>##第二章</p>
-<p>直到被陈大姐拍了两下肩，她才回过神来，听到陈大姐的话——</p>
-<p>“……S市基地的柳弯弯吧，整天就听说她的名字，这回竟然让我亲眼见到了！”</p>
-<p>陈大姐有些激动，“四系异能，女异能者全国异能等级排行第一，听说她还是S市基地的决策者之一呢！</p>
-<p>果然是名不虚传啊，还长得这么漂亮！这都跟那些故事里的女主角一样了！”</p>
-<p>秦瓷面无表情地听着，听罢嘲讽一笑——柳弯弯，女主角么？那她算什么，刚出场就被女主炮灰掉的路人甲？哦不，或许她连路人甲都不算，大约只是个可怜的路人丁。</p>
-<p>不过，路人丁其实也不错，起码在这血腥纷乱的末世三年，她很幸运地遇到了一个好男人，过了三年安逸到奢侈的日子。</p>
-<p>秦瓷垂下长长的睫毛，按捺住心中对柳弯弯的恨意，劝慰自己——做人要知足。</p>
-<p>在车开到离那群人最近的一瞬，柳弯弯伸手撩了撩头发，一抹莹润的白色闪入秦瓷眼中，秦瓷眉头一皱——那是一个白玉指环，套在柳弯弯左手中指上。</p>
-<p>这没有什么稀奇的，但是，在秦瓷的记忆中，那是一个绿中带黄的杂色玉石指环，并不是她今天所看到那莹润温和的白色。</p>
-<p>任何跟柳弯弯有关的记忆都被秦瓷保存的很好，她不会记错，那么……这究竟是怎么回事？</p>
-<p>车开过，被众人环绕的柳弯弯似有所觉，偏头看去。</p>
-<p>身边高大俊朗的男人低头柔声问：“弯弯，怎么了？”他这话一出，周围的男人纷纷将视线调回，关切地看向柳弯弯。</p>
-<p>柳弯弯的笑一如三年前，清澈干净：“没事。”</p>
-<p>基地总部大楼一般闲杂人等是进不去的，秦瓷本来以为要费几句口舌，但没想到的是，门口守卫只是问了她两句就给她放行了。秦瓷以为是丈夫提前打好了招呼，一路含着笑意上到43楼。</p>
-<p>秦瓷没有来过这里，也不知道丈夫平时工作的楼层，但是，当电梯在43楼打开，她踏着暗红色绣花的地毯走出来时，那奢华耀眼的装饰还是让她察觉到了不对劲。</p>
-<p>43楼没有隔断，只是在电梯入口处用了一扇檀木雕花的屏风遮挡视线。</p>
-<p>秦瓷有些心慌，她不知道屏风后头有什么人，但应该不会她的丈夫。她想了想，刻意放轻了脚步，转身走回电梯前。但当她伸手摁向下的按钮时，电梯却没有任何反应。</p>
-<p>“秦，既然来了，为什么不多坐一会儿呢？”一个温和的男声在身后响起，秦瓷转过身，只见一个衣着不凡的中年男人从屏风后绕了出来，站在屏风旁对她微微一笑。</p>
-<p>虽然那男人看上去斯文有礼，但秦瓷却不敢掉以轻心，她谨慎地说：“不好意思，先生，我大约是走错了。很抱歉打扰您，我这就离开。”</p>
-<p>秦瓷的镇定，让男人眼中闪过一丝兴味，他不紧不慢道：“秦是要到43楼吧？如果是，那就没有走错。”顿了顿，他意味深长地笑道：“我叫卫城，我想……你应该听说过我的名字。应杭今天有任务，不在办公室，他出去前，特意叮嘱我要好好招待你的。”</p>
-<hr>
-<p>##第三章</p>
-<p>卫城，央京基地二把手，其父为共和国上将，在部队中积威望极高。</p>
-<p>秦瓷脸色瞬间煞白，脸上露出不可置信的神色。</p>
-<p>自从进了电梯，她就将挡住了大半张脸的口罩取下，此时她的神色变化尽数落尽男人眼中，男人唇边的笑意愈深。</p>
-<p>卫城一步步走近她，声音轻柔得仿佛诱哄：“秦瓷，你是个聪明的姑娘，彭应杭他的选择，你也看到了。就算没有我，凭你这张脸，他一个小小上校，也保不了你多久的。你——要想清楚。”</p>
-<p>秦瓷只觉得身体一阵阵发冷，胸口以下似乎都没有了知觉，她艰难地开口：“我不相信，我要他亲口对我说。”</p>
-<p>卫城怜悯地看着她，好像在说“女人啊，总是这么天真愚蠢”。盯着她瞧了一会儿，见她依旧是倔强地站在那儿，卫城摇，大度地笑了笑，进去拨了电话，让彭应杭上来。</p>
-<p>一年多前一次意外，让他惊鸿一瞥，得见秦瓷不曾遮掩的容颜，这次的事情他已经是筹划许久了，好不容易才用权势利益让彭应杭动心。</p>
-<p>今后这小美人就是他的了，他会好好待她，如今叫上彭应杭来跟她说清楚，让她死心从此心甘情愿地跟着他，也没什么不好的。</p>
-<p>卫城自诩是个大度的人，在这道德法律通通不管用的末世，他竟然这样通情达理，卫城不禁为自己的好心肠感慨了一番。</p>
-<p>彭应杭进来后，就一直站在离秦瓷五步远的地方，垂头不语。</p>
-<p>秦瓷看他那样，还有什么不明白的？她苦涩地笑：“我不怪你，当年是你救了我，又让我这三年都过得平静安宁，你……确实不欠我什么，我也没资格怪你。”泪簌簌而下，她却没有去擦，任眼泪在白玉般的面颊上流淌，“只是，我是你的妻子……”</p>
-<p>彭应杭的身子晃了晃，头却埋得更低了，他不敢抬头，他怕一看见秦瓷的眼泪，就会忍不住心软，就会后悔自己做出的选择。</p>
-<p>秦瓷扬起带泪的小脸，看了他最后一眼，又转向盯着她目不转睛的卫城。</p>
-<p>卫城此时已经被美色迷昏了头，秦瓷一张小脸哭得梨花带雨，瓷白的肌肤被泪水冲刷过后更显晶莹诱人，那娇娇怯怯中又透出一股无法言说的艳光，简直让人色授魂予！</p>
-<p>他正盯着美人瞧呢，忽然——不见了？美人不见了？</p>
-<p>眼睛眨了又眨，卫城左看右看，怎么秦瓷忽然就消失了？！</p>
-<p>“人呢？！！！”</p>
-<p>彭应杭抬起头，却没看到妻子，惊恐又茫然：“啊？”</p>
-<p>骤然消失的秦瓷，此时正在窗外做自由落体运动。</p>
-<p>天知道，她启动那蹩脚的瞬移异能明明是朝着下一层楼的，怎么好好的就瞬移到窗外去了？</p>
-<p>落地的前一瞬，秦瓷想：自己果然是炮灰路人丁啊，连死法都这么炮灰……</p>
-]]></content>
-      <categories>
-        <category>前端</category>
-        <category>HTML</category>
-      </categories>
-      <tags>
-        <tag>HTML</tag>
-        <tag>前端</tag>
-        <tag>随笔</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2020/01/13/hello-world/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<a id="more"></a>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-]]></content>
-      <categories>
-        <category>前端</category>
-        <category>HTML</category>
-      </categories>
-      <tags>
-        <tag>HTML</tag>
-        <tag>前端</tag>
       </tags>
   </entry>
 </search>
