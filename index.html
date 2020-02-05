@@ -69,6 +69,122 @@
     
     
     
+    <article id="post-springmvc_static_resource" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/02/04/springmvc_static_resource/"
+    >springMVC中处理静态资源问题</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/02/04/springmvc_static_resource/" class="article-date">
+  <time datetime="2020-02-04T02:07:28.000Z" itemprop="datePublished">2020-02-04</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/%E6%A1%86%E6%9E%B6/">框架</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>###处理urlpattern为 / 时静态资源无法访问的问题<br>##1，这里的是要访问tomcat的web.xml中对应的Defaultservlet，这个servlet专门处理静态资源</p>
+ <servlet-mapping>
+     <servlet-name>default</servlet-name>
+     <url-pattern>*.jpg</url-pattern>
+ </servlet-mapping>
+      
+      <a class="article-more-link" href="/2020/02/04/springmvc_static_resource/">阅读更多...</a>
+      
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hollowbing.github.io/2020/02/04/springmvc_static_resource/" data-id="ck693nlq70000gkuk4upg31n7"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+</article>
+
+  
+ <script>
+    var binft = function (r) {
+      function t() {
+        return b[Math.floor(Math.random() * b.length)]
+      }  
+      function e() {
+        return String.fromCharCode(94 * Math.random() + 33)
+      }
+      function n(r) {
+        for (var n = document.createDocumentFragment(), i = 0; r > i; i++) {
+          var l = document.createElement("span");
+          l.textContent = e(), l.style.color = t(), n.appendChild(l)
+        }
+        return n
+      }
+      function i() {
+        var t = o[c.skillI];
+        c.step ? c.step-- : (c.step = g, c.prefixP < l.length ? (c.prefixP >= 0 && (c.text += l[c.prefixP]), c.prefixP++) : "forward" === c.direction ? c.skillP < t.length ? (c.text += t[c.skillP], c.skillP++) : c.delay ? c.delay-- : (c.direction = "backward", c.delay = a) : c.skillP > 0 ? (c.text = c.text.slice(0, -1), c.skillP--) : (c.skillI = (c.skillI + 1) % o.length, c.direction = "forward")), r.textContent = c.text, r.appendChild(n(c.prefixP < l.length ? Math.min(s, s + c.prefixP) : Math.min(s, t.length - c.skillP))), setTimeout(i, d)
+      }
+      var l = "",
+      o = ["停车坐爱枫林晚","霜叶红于二月花"].map(function (r) {
+      return r + ""
+      }),
+      a = 2,
+      g = 1,
+      s = 5,
+      d = 75,
+      b = ["rgb(110,64,170)", "rgb(150,61,179)", "rgb(191,60,175)", "rgb(228,65,157)", "rgb(254,75,131)", "rgb(255,94,99)", "rgb(255,120,71)", "rgb(251,150,51)", "rgb(226,183,47)", "rgb(198,214,60)", "rgb(175,240,91)", "rgb(127,246,88)", "rgb(82,246,103)", "rgb(48,239,130)", "rgb(29,223,163)", "rgb(26,199,194)", "rgb(35,171,216)", "rgb(54,140,225)", "rgb(76,110,219)", "rgb(96,84,200)"],
+      c = {
+        text: "",
+        prefixP: -s,
+        skillI: 0,
+        skillP: 0,
+        direction: "forward",
+        delay: a,
+        step: g
+      };
+      i()
+      };
+      binft(document.getElementById('binft'));
+  </script>
+    
     <article id="post-web_route" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -124,7 +240,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hollowbing.github.io/2020/02/02/web_route/" data-id="ck66jylne0002w4ukercnccbz"
+      <a data-url="https://hollowbing.github.io/2020/02/02/web_route/" data-id="ck693nlqn0006gkuk4jcw9ppp"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML/" rel="tag">HTML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li></ul>
@@ -229,8 +345,8 @@
       
       <p>##&lt;每日一曲&gt;</p>
 
-    <div id="aplayer-iUMESAfL" class="aplayer aplayer-tag-marker meting-tag-marker"
-         data-id="1400397460" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"
+    <div id="aplayer-yXMVpvhz" class="aplayer aplayer-tag-marker meting-tag-marker"
+         data-id="1368975624" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"
     ></div>
 
 
@@ -239,7 +355,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hollowbing.github.io/2020/02/02/music/" data-id="ck66jyln10000w4uk315c5dbk"
+      <a data-url="https://hollowbing.github.io/2020/02/02/music/" data-id="ck693nlqh0002gkukhlj87ujl"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9F%B3%E4%B9%90/" rel="tag">音乐</a></li></ul>
@@ -326,13 +442,12 @@
     </ul>
     <ul class="list-inline">
       <li>
-        
-        
-        <ul class="list-inline">
-  <li>本站总访问量:<span id="busuanzi_value_page_pv"></span></li>
-  <li>本站访客数:<span id="busuanzi_value_site_uv"></span></li>
-</ul>
-        
+        <span id="busuanzi_container_site_pv">
+        本站总访问量:<span id="busuanzi_value_site_pv"></span>
+        </span>
+	<span id="busuanzi_container_site_uv">
+        本站访客数:<span id="busuanzi_value_site_uv"></span>
+        </span>
       </li>
       <li>
       <!-- 网站运行时间的设置 -->
@@ -342,7 +457,7 @@
     </ul>
   </div>
 </footer>
-
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 <script>
     var now = new Date();
     function createtime() {

@@ -6,7 +6,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    about Me |  陈炎彬
+    springMVC中处理静态资源问题 |  陈炎彬
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -33,7 +33,7 @@
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article id="about-" class="article article-type-about" itemscope
+  <article id="post-springmvc_static_resource" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -41,7 +41,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  about Me
+  springMVC中处理静态资源问题
 </h1>
   
 
@@ -49,6 +49,53 @@
     
 
     
+    <div class="article-meta">
+      <a href="/2020/02/04/springmvc_static_resource/" class="article-date">
+  <time datetime="2020-02-04T02:07:28.000Z" itemprop="datePublished">2020-02-04</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/%E6%A1%86%E6%9E%B6/">框架</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">255字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">1分钟</span>
+        </span>
+    </span>
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+	    <span class="post-meta-item-text"> 本文总阅读量:</span>
+	    <span id="busuanzi_value_page_pv" class="post-count"></span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+
+
+
 
     
 
@@ -59,11 +106,26 @@
       
 
       
-      <pre><code>江西农业大学在读生
+      <p>###处理urlpattern为 / 时静态资源无法访问的问题<br>##1，这里的是要访问tomcat的web.xml中对应的Defaultservlet，这个servlet专门处理静态资源</p>
+ <servlet-mapping>
+     <servlet-name>default</servlet-name>
+     <url-pattern>*.jpg</url-pattern>
+ </servlet-mapping>
 
-感谢陪伴，承蒙厚爱
+  <a id="more"></a>
+<hr>
+<p>##2，需要在springmvc.xml中加入mvc约束</p>
+<p>xmlns:mvc=”<a href="http://www.springframework.org/schema/mvc&quot;" target="_blank" rel="noopener">http://www.springframework.org/schema/mvc&quot;</a></p>
+<p><a href="http://www.springframework.org/schema/mvc" target="_blank" rel="noopener">http://www.springframework.org/schema/mvc</a><br><a href="http://www.springframework.org/schema/spring-mvc.xsd" target="_blank" rel="noopener">http://www.springframework.org/schema/spring-mvc.xsd</a></p>
+<p><a href="mvc:default-servlet-handler/">mvc:default-servlet-handler/</a></p>
+<p>这个标签会将对静态资源的访问请求通过HandlerMapper映射到<br>默认的Servlet请求处理器DefaultServletHttpRequestHandler对象，<br>而该处理器调用了tomcat的DefaultServlet来处理静态资源的访问请求</p>
+<hr>
+<p>##3，需要在springmvc.xml中加入mvc约束、</p>
+<p>xmlns:mvc=”<a href="http://www.springframework.org/schema/mvc&quot;" target="_blank" rel="noopener">http://www.springframework.org/schema/mvc&quot;</a></p>
+<p><a href="http://www.springframework.org/schema/mvc" target="_blank" rel="noopener">http://www.springframework.org/schema/mvc</a><br><a href="http://www.springframework.org/schema/spring-mvc.xsd" target="_blank" rel="noopener">http://www.springframework.org/schema/spring-mvc.xsd</a></p>
+<p>&lt;mvc:resources location=”/images/“ mapping=”/images/**”/&gt;<br>在spring3.0.4版本后，spring中专门用于处理静态资源访问请求的处理器ResourcesHttpRequestHandler,<br>并添加了<a href="mvc:resources/">mvc:resources/</a>标签，专门用于解决静态资源无法访问问题。需要在springmvc.xml中配置</p>
+<p>location表示静态资源所在目录<br>mapping表示对该资源的请求</p>
 
-QQ：1711887838</code></pre>
       
       <!-- 打赏 -->
       
@@ -73,15 +135,27 @@ QQ：1711887838</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hollowbing.github.io/2019/about/index.html" data-id="ck693nlsg000rgkuk280uacaa"
+      <a data-url="https://hollowbing.github.io/2020/02/04/springmvc_static_resource/" data-id="ck693nlq70000gkuk4upg31n7"
         class="article-share-link">分享</a>
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li></ul>
+
     </footer>
 
   </div>
 
   
   
+  <nav class="article-nav">
+    
+    
+      <a href="/2020/02/02/web_route/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">web中请求路径的问题</div>
+      </a>
+    
+  </nav>
+
 
   
 
@@ -185,7 +259,6 @@ QQ：1711887838</code></pre>
       binft(document.getElementById('binft'));
   </script>
 </section>
-
       <footer class="footer">
   <div class="outer">
     <ul class="list-inline">
@@ -246,8 +319,8 @@ setInterval("createtime()",250);
       </div>
     </main>
     
-      <aside class="sidebar">
-        
+    <aside class="sidebar">
+      
         <button class="navbar-toggle"></button>
 <nav class="navbar">
   
@@ -345,6 +418,27 @@ setInterval("createtime()",250);
 
 
 
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+			onClick: (e) => {
+      	document.getElementById(e.target.innerText).scrollIntoView()
+      	return false;
+    	}
+    });
+  </script>
 
 
 <script>

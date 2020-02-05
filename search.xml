@@ -1,6 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>springMVC中处理静态资源问题</title>
+    <url>/2020/02/04/springmvc_static_resource/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>###处理urlpattern为 / 时静态资源无法访问的问题<br>##1，这里的是要访问tomcat的web.xml中对应的Defaultservlet，这个servlet专门处理静态资源</p>
+ <servlet-mapping>
+     <servlet-name>default</servlet-name>
+     <url-pattern>*.jpg</url-pattern>
+ </servlet-mapping>
+
+  <a id="more"></a>
+<hr>
+<p>##2，需要在springmvc.xml中加入mvc约束</p>
+<p>xmlns:mvc=”<a href="http://www.springframework.org/schema/mvc&quot;" target="_blank" rel="noopener">http://www.springframework.org/schema/mvc&quot;</a></p>
+<p><a href="http://www.springframework.org/schema/mvc" target="_blank" rel="noopener">http://www.springframework.org/schema/mvc</a><br><a href="http://www.springframework.org/schema/spring-mvc.xsd" target="_blank" rel="noopener">http://www.springframework.org/schema/spring-mvc.xsd</a></p>
+<p><a href="mvc:default-servlet-handler/">mvc:default-servlet-handler/</a></p>
+<p>这个标签会将对静态资源的访问请求通过HandlerMapper映射到<br>默认的Servlet请求处理器DefaultServletHttpRequestHandler对象，<br>而该处理器调用了tomcat的DefaultServlet来处理静态资源的访问请求</p>
+<hr>
+<p>##3，需要在springmvc.xml中加入mvc约束、</p>
+<p>xmlns:mvc=”<a href="http://www.springframework.org/schema/mvc&quot;" target="_blank" rel="noopener">http://www.springframework.org/schema/mvc&quot;</a></p>
+<p><a href="http://www.springframework.org/schema/mvc" target="_blank" rel="noopener">http://www.springframework.org/schema/mvc</a><br><a href="http://www.springframework.org/schema/spring-mvc.xsd" target="_blank" rel="noopener">http://www.springframework.org/schema/spring-mvc.xsd</a></p>
+<p>&lt;mvc:resources location=”/images/“ mapping=”/images/**”/&gt;<br>在spring3.0.4版本后，spring中专门用于处理静态资源访问请求的处理器ResourcesHttpRequestHandler,<br>并添加了<a href="mvc:resources/">mvc:resources/</a>标签，专门用于解决静态资源无法访问问题。需要在springmvc.xml中配置</p>
+<p>location表示静态资源所在目录<br>mapping表示对该资源的请求</p>
+]]></content>
+      <categories>
+        <category>后端</category>
+        <category>框架</category>
+      </categories>
+      <tags>
+        <tag>后端</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>web中请求路径的问题</title>
     <url>/2020/02/02/web_route/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>##绝对路径</p>
@@ -33,8 +64,8 @@
     <url>/2020/02/02/music/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>##&lt;每日一曲&gt;</p>
 
-    <div id="aplayer-iUMESAfL" class="aplayer aplayer-tag-marker meting-tag-marker"
-         data-id="1400397460" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"
+    <div id="aplayer-yXMVpvhz" class="aplayer aplayer-tag-marker meting-tag-marker"
+         data-id="1368975624" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"
     ></div>
 
 ]]></content>

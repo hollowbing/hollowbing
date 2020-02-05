@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hollowbing.github.io/"/>
-  <updated>2020-02-03T13:10:33.392Z</updated>
+  <updated>2020-02-05T09:13:48.167Z</updated>
   <id>https://hollowbing.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>springMVC中处理静态资源问题</title>
+    <link href="https://hollowbing.github.io/2020/02/04/springmvc_static_resource/"/>
+    <id>https://hollowbing.github.io/2020/02/04/springmvc_static_resource/</id>
+    <published>2020-02-04T02:07:28.000Z</published>
+    <updated>2020-02-05T09:13:48.167Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;###处理urlpattern为 / 时静态资源无法访问的问题&lt;br&gt;##1，这里的是要访问tomcat的web.xml中对应的Defaultservlet，这个servlet专门处理静态资源&lt;/p&gt;
+ &lt;servlet-mapping&gt;
+     &lt;servlet-name&gt;default&lt;/servlet-name&gt;
+     &lt;url-pattern&gt;*.jpg&lt;/url-pattern&gt;
+ &lt;/servlet-mapping&gt;
+    
+    </summary>
+    
+    
+      <category term="后端" scheme="https://hollowbing.github.io/categories/%E5%90%8E%E7%AB%AF/"/>
+    
+      <category term="框架" scheme="https://hollowbing.github.io/categories/%E5%90%8E%E7%AB%AF/%E6%A1%86%E6%9E%B6/"/>
+    
+    
+      <category term="后端" scheme="https://hollowbing.github.io/tags/%E5%90%8E%E7%AB%AF/"/>
+    
+  </entry>
   
   <entry>
     <title>web中请求路径的问题</title>
@@ -50,7 +77,7 @@
     <link href="https://hollowbing.github.io/2020/02/02/music/"/>
     <id>https://hollowbing.github.io/2020/02/02/music/</id>
     <published>2020-02-02T12:00:00.000Z</published>
-    <updated>2020-02-03T13:05:29.425Z</updated>
+    <updated>2020-02-05T08:54:40.391Z</updated>
     
     <summary type="html">
     
