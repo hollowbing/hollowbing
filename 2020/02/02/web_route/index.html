@@ -65,7 +65,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">243字</span>
+            <span class="post-count">273字</span>
         </span>
     </span>
 
@@ -93,6 +93,8 @@
 
     
     
+    <div class="tocbot"></div>
+
 
 
 
@@ -106,21 +108,28 @@
       
 
       
-      <p>##绝对路径</p>
-<p>这个就不多说了，直接url就行了</p>
+      <h3 id="解决web应用中存在的的路径问题"><a href="#解决web应用中存在的的路径问题" class="headerlink" title="解决web应用中存在的的路径问题"></a>解决web应用中存在的的路径问题</h3><h6 id="1，绝对路径"><a href="#1，绝对路径" class="headerlink" title="1，绝对路径"></a>1，绝对路径</h6><p>这个就不多说了，直接写完整的url就可以了</p>
 <hr>
-<p>##相对路径</p>
-<p>分为两种 以/开头和不以/开头</p>
+<h6 id="2，相对路径"><a href="#2，相对路径" class="headerlink" title="2，相对路径"></a>2，相对路径</h6><p>分为两种 以/开头和不以/开头</p>
 <a id="more"></a>
 
-<p>###以/开头的分为  </p>
+<blockquote>
+<p>以/开头的分为  </p>
+</blockquote>
 <p>前台路径（在jsp出现的）和后台路径（在java代码里和配置文件里出现的）</p>
 <p>前台路径的参照路径为 web服务器的根 <a href="http://127.0.0.1:8080" target="_blank" rel="noopener">http://127.0.0.1:8080</a></p>
 <p>后台路径的参照路径为 web应用的根 <a href="http://127.0.0.1:8080/springMVC" target="_blank" rel="noopener">http://127.0.0.1:8080/springMVC</a></p>
-<p>###不以/开头的</p>
-<p>参照路径为当前访问路径为 <a href="http://127.0.0.1:8080/springMVC/hello.do去掉hello.do" target="_blank" rel="noopener">http://127.0.0.1:8080/springMVC/hello.do去掉hello.do</a><br>（response.sendRedirect(“welcome.jsp”)）不能加/</p>
+<blockquote>
+<p>不以/开头的</p>
+</blockquote>
+<p>参照路径为当前访问路径为 <a href="http://127.0.0.1:8080/springMVC/hello.do" target="_blank" rel="noopener">http://127.0.0.1:8080/springMVC/hello.do</a></p>
+<p>去掉hello.do (资源名称部分)</p>
+<p>[^（response.sendRedirect(&quot;welcome.jsp&quot;)）不能加/]: </p>
 <p>不带斜杠的相对路径问题的解决方案<br>当相对路径出现多级时  加上  /项目名称 可以解决问题</p>
-<p>&lt;%<br>String path = request.getContextPath();<br>String basePath = request.getSchem()+”://“+request.getServerName()+”:”+request.getServerPort()+path+”/“;<br>%&gt;<br>在head标签里加上base标签 <base href="<%=basePath%>"/><br>base标签会自动在当前页面的不以斜杠开头的路径前加上basePath路径，使其变为绝对路径</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;%</span><br><span class="line">String path = request.getContextPath();</span><br><span class="line">String basePath = request.getSchem()+<span class="string">"://"</span>+request.getServerName()+<span class="string">":"</span>+request.getServerPort()+path+<span class="string">"/"</span>;</span><br><span class="line">%&gt;</span><br></pre></td></tr></table></figure>
+
+
+<p>在head标签里加上base标签 <base href="<%=basePath%>"/><br>base标签会自动在当前页面的不以斜杠开头的路径前加上basePath路径，使其变为绝对路径</p>
 
       
       <!-- 打赏 -->
@@ -131,7 +140,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hollowbing.github.io/2020/02/02/web_route/" data-id="ck693nlqn0006gkuk4jcw9ppp"
+      <a data-url="https://hollowbing.github.io/2020/02/02/web_route/" data-id="ck6p1bheu0008r8ukbr6e2cgh"
         class="article-share-link">分享</a>
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML/" rel="tag">HTML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li></ul>
