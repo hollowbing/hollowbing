@@ -6,7 +6,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    springMVC中处理静态资源问题 |  陈炎彬
+    centos6中docker安装出错了！ |  陈炎彬
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -33,7 +33,7 @@
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article id="post-springmvc_static_resource" class="article article-type-post" itemscope
+  <article id="post-docker-install" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -41,7 +41,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  springMVC中处理静态资源问题
+  centos6中docker安装出错了！
 </h1>
   
 
@@ -50,12 +50,12 @@
 
     
     <div class="article-meta">
-      <a href="/2020/02/04/springmvc_static_resource/" class="article-date">
-  <time datetime="2020-02-04T02:07:28.000Z" itemprop="datePublished">2020-02-04</time>
+      <a href="/2020/02/19/docker-install/" class="article-date">
+  <time datetime="2020-02-19T02:05:34.000Z" itemprop="datePublished">2020-02-19</time>
 </a>
       
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/%E6%A1%86%E6%9E%B6/">框架</a>
+    <a class="article-category-link" href="/categories/Linux/">Linux</a> / <a class="article-category-link" href="/categories/Linux/docker/">docker</a>
   </div>
 
       
@@ -65,7 +65,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">276字</span>
+            <span class="post-count">188字</span>
         </span>
     </span>
 
@@ -93,8 +93,6 @@
 
     
     
-    <div class="tocbot"></div>
-
 
 
 
@@ -108,19 +106,18 @@
       
 
       
-      <h3 id="处理urlpattern为-时静态资源无法访问的问题"><a href="#处理urlpattern为-时静态资源无法访问的问题" class="headerlink" title="*处理urlpattern为 / 时静态资源无法访问的问题"></a>*处理urlpattern为 / 时静态资源无法访问的问题</h3><h5 id="1，这里的是要访问tomcat的web-xml中对应的Defaultservlet，这个servlet专门处理静态资源"><a href="#1，这里的是要访问tomcat的web-xml中对应的Defaultservlet，这个servlet专门处理静态资源" class="headerlink" title="1，这里的是要访问tomcat的web.xml中对应的Defaultservlet，这个servlet专门处理静态资源"></a>1，这里的是要访问tomcat的web.xml中对应的Defaultservlet，这个servlet专门处理静态资源</h5><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>default<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>*.jpg<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
+      <p>在Linux系统上安装docker的时候出现了以下的问题，在执行命令yum install docker的时候出现如下错误：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Setting up Install Process</span><br><span class="line">No package docker available.</span><br><span class="line">Error: Nothing to do</span><br></pre></td></tr></table></figure>
 
+<a id="more"></a>
 
+<p>后来查询百度之后，找出了错误，原来是yum没有找到docker包，需要更新epel第三方软件库，即运行如下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install epel-release</span><br><span class="line">sudo yum install docker-io</span><br></pre></td></tr></table></figure>
 
-  <a id="more"></a>
-<hr>
-<h5 id="2，需要在springmvc-xml中加入mvc约束"><a href="#2，需要在springmvc-xml中加入mvc约束" class="headerlink" title="2，需要在springmvc.xml中加入mvc约束"></a>2，需要在springmvc.xml中加入mvc约束</h5><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">xmlns:mvc="http://www.springframework.org/schema/mvc"</span><br><span class="line"></span><br><span class="line">http://www.springframework.org/schema/mvc</span><br><span class="line">http://www.springframework.org/schema/spring-mvc.xsd</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">mvc:default-servlet-handler</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>然而可能再次出现  “No package docker-io available 错误：无须任何处理”，这次可以使用以下命令安装docker：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install https:&#x2F;&#x2F;get.docker.com&#x2F;rpm&#x2F;1.7.1&#x2F;centos-6&#x2F;RPMS&#x2F;x86_64&#x2F;docker-engine-1.7.1-1.el6.x86_64.rpm</span><br></pre></td></tr></table></figure>
 
-<p>这个标签会将对静态资源的访问请求通过HandlerMapper映射到默认的Servlet请求处理器DefaultServletHttpRequestHandler对象，而该处理器调用了tomcat的DefaultServlet来处理静态资源的访问请求</p>
-<h5 id="3，需要在springmvc-xml中加入mvc约束"><a href="#3，需要在springmvc-xml中加入mvc约束" class="headerlink" title="3，需要在springmvc.xml中加入mvc约束"></a>3，需要在springmvc.xml中加入mvc约束</h5><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">xmlns:mvc="http://www.springframework.org/schema/mvc"</span><br><span class="line"></span><br><span class="line">http://www.springframework.org/schema/mvc</span><br><span class="line">http://www.springframework.org/schema/spring-mvc.xsd</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">mvc:resources</span> <span class="attr">location</span>=<span class="string">"/images/"</span> <span class="attr">mapping</span>=<span class="string">"/images/**"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>spring中专门用于处理静态资源访问请求的处理器ResourcesHttpRequestHandler,并添加了<a href="mvc:resources/">mvc:resources/</a>标签，专门用于解决静态资源无法访问问题。需要在springmvc.xml中配置在spring3.0.4版本后，</p>
-<p><strong>location表示静态资源所在目录</strong><br><strong>mapping表示对该资源的请求</strong></p>
+<p>如果再次出现 ”No package docker-io available 错误：无须任何处理“这个错误，介意换成centos7！！！</p>
 
       
       <!-- 打赏 -->
@@ -131,10 +128,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hollowbing.github.io/2020/02/04/springmvc_static_resource/" data-id="ck74f6c2r000avkukgt2cat2c"
+      <a data-url="https://hollowbing.github.io/2020/02/19/docker-install/" data-id="ck74f6c2v000fvkukacrrhtw2"
         class="article-share-link">分享</a>
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/" rel="tag">docker</a></li></ul>
 
     </footer>
 
@@ -144,19 +141,19 @@
   
   <nav class="article-nav">
     
-      <a href="/2020/02/05/Spring%20Boot/" class="article-nav-link">
+      <a href="/2020/02/22/docker-error/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            springboot知识点
+            centos6中docker安装成功后常见的错误
           
         </div>
       </a>
     
     
-      <a href="/2020/02/02/web_route/" class="article-nav-link">
+      <a href="/2020/02/18/Linux-update/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">web中请求路径的问题</div>
+        <div class="article-nav-title">Linux在线升级内核  centOS 6+</div>
       </a>
     
   </nav>

@@ -1,6 +1,195 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>springboot学习笔记——之jdbc连接配置自动建表</title>
+    <url>/2020/02/24/spring%20boot_init_mode/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>本人采用的是springboot2.2.4版本，本次笔记主要是记录一个2.x版本之后一个关于schema配置，initialization-mode: always ，该配置主要的作用是为了使classpath下存放的sql文件自动执行插入数据库.</p>
+<a id="more"></a>
+
+<p>首先我们要知道springboot所有跟数据交互的项目都是springdata,无论是jdbc、mybatis亦或者是Redis等,所以连接数据库的配置是spring.datasource开头的例如username等各种配置值。</p>
+<p>我们都知道jdbc能给我们提供一个直接创建表的方法，我们只需要在classpath下放置我们所需要运行的sql文件，再在配置文件中配置属性即可例如：</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">datasource:</span></span><br><span class="line"><span class="comment">#   数据源基本配置</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">"0730"</span></span><br><span class="line">    <span class="attr">driver-class-name:</span> <span class="string">com.mysql.jdbc.Driver</span></span><br><span class="line">    <span class="attr">url:</span> <span class="string">jdbc:mysql://localhost:3306/bootmybatis?useUnicode=true&amp;characterEncoding=utf-8&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">schema:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">classpath:sql/department.sql</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">classpath:sql/employee.sql</span></span><br></pre></td></tr></table></figure>
+
+<p>但是我们配置好schema后会发现并没有创建表，因为在springboot2.x后以后增加了一个属性initialization-mode: always ，只有当配置文件中配置了这个属性，才能使classpath下存放的sql文件自动执行插入数据库.具体流程见以下源码分析。</p>
+<p>我们知道能执行sql文件的方法在Datasourceinitializer类中，以下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Create the schema if necessary.</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span> &#123;<span class="doctag">@code</span> true&#125; if the schema was created</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@see</span> DataSourceProperties#getSchema()</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">boolean</span> <span class="title">createSchema</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		List&lt;Resource&gt; scripts = getScripts(<span class="string">"spring.datasource.schema"</span>, <span class="keyword">this</span>.properties.getSchema(), <span class="string">"schema"</span>);</span><br><span class="line">		<span class="keyword">if</span> (!scripts.isEmpty()) &#123;</span><br><span class="line">            <span class="comment">//调用isEnabled方法,来判断是否执行classpath下的sql文件，且当yml文件中配置值为ALAYWS时才生效,通过校验后才会执行runScript方法创建数据库表</span></span><br><span class="line">			<span class="keyword">if</span> (!isEnabled()) &#123;</span><br><span class="line">				logger.debug(<span class="string">"Initialization disabled (not running DDL scripts)"</span>);</span><br><span class="line">				<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			String username = <span class="keyword">this</span>.properties.getSchemaUsername();</span><br><span class="line">			String password = <span class="keyword">this</span>.properties.getSchemaPassword();</span><br><span class="line">			runScripts(scripts, username, password);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> !scripts.isEmpty();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//从这个方法中我们能看见isEnabled要想返回会true，取决于ataSourceInitializationMode的值，这个值就是重配置文件取得的属性属性initialization-mode:</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isEnabled</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		DataSourceInitializationMode mode = <span class="keyword">this</span>.properties.getInitializationMode();</span><br><span class="line">		<span class="keyword">if</span> (mode == DataSourceInitializationMode.NEVER) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (mode == DataSourceInitializationMode.EMBEDDED &amp;&amp; !isEmbedded()) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//在DatasourceProperties中可以看出DataSourceInitializationMode的值确实对应属性initializationMode</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setInitializationMode</span><span class="params">(DataSourceInitializationMode initializationMode)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.initializationMode = initializationMode;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//DataSourceInitializationMode的类型为枚举类型，只有三个值ALWAYS,EMBEDDED,NEVER</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> DataSourceInitializationMode &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Always initialize the datasource.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	ALWAYS,</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Only initialize an embedded datasource.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	EMBEDDED,</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Do not initialize the datasource.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	NEVER</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">runScripts</span><span class="params">(List&lt;Resource&gt; resources, String username, String password)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (resources.isEmpty()) &#123;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		ResourceDatabasePopulator populator = <span class="keyword">new</span> ResourceDatabasePopulator();</span><br><span class="line">		populator.setContinueOnError(<span class="keyword">this</span>.properties.isContinueOnError());</span><br><span class="line">		populator.setSeparator(<span class="keyword">this</span>.properties.getSeparator());</span><br><span class="line">		<span class="keyword">if</span> (<span class="keyword">this</span>.properties.getSqlScriptEncoding() != <span class="keyword">null</span>) &#123;</span><br><span class="line">			populator.setSqlScriptEncoding(<span class="keyword">this</span>.properties.getSqlScriptEncoding().name());</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span> (Resource resource : resources) &#123;</span><br><span class="line">			populator.addScript(resource);</span><br><span class="line">		&#125;</span><br><span class="line">		DataSource dataSource = <span class="keyword">this</span>.dataSource;</span><br><span class="line">		<span class="keyword">if</span> (StringUtils.hasText(username) &amp;&amp; StringUtils.hasText(password)) &#123;</span><br><span class="line">			dataSource = DataSourceBuilder.create(<span class="keyword">this</span>.properties.getClassLoader())</span><br><span class="line">					.driverClassName(<span class="keyword">this</span>.properties.determineDriverClassName()).url(<span class="keyword">this</span>.properties.determineUrl())</span><br><span class="line">					.username(username).password(password).build();</span><br><span class="line">		&#125;</span><br><span class="line">		DatabasePopulatorUtils.execute(populator, dataSource);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>总结：在springboot2.x以后的版本添加了很多规则配置，当你看到代码执行没有报错却没有达到预期的效果，这时候就要检查相关的配置是否缺少了。</p>
+]]></content>
+      <categories>
+        <category>后端</category>
+        <category>框架</category>
+        <category>springboot</category>
+      </categories>
+      <tags>
+        <tag>后端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>centos6中docker安装成功后常见的错误</title>
+    <url>/2020/02/22/docker-error/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h3 id="1，docker启动报错：Job-for-docker-service-failed-because-the-control-process-exited-with-error-code-See"><a href="#1，docker启动报错：Job-for-docker-service-failed-because-the-control-process-exited-with-error-code-See" class="headerlink" title="1，docker启动报错：Job for docker.service failed because the control process exited with error code. See"></a>1，docker启动报错：Job for docker.service failed because the control process exited with error code. See</h3><p>参考博客：</p>
+<p>[<a href="https://blog.csdn.net/sammoye/article/details/93771963]" target="_blank" rel="noopener">https://blog.csdn.net/sammoye/article/details/93771963]</a>: </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# systemctl start docker</span><br><span class="line">Job for docker.service failed because the control process exited with error code. See "systemctl status docker.service" and "journalctl -xe" for details.</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<p>根据提示输入：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# systemctl status docker.service</span><br></pre></td></tr></table></figure>
+
+<p>如下图，SELinux is not supported with the overlay2 graph driver on this kernel.</p>
+<p>SELinux不支持此内核上的overlay2图形驱动程序，禁用selinux即可</p>
+<p><img src="docker-error.assets/20190626195510716.png" alt=""></p>
+<p>修改文本内容：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# vim /etc/sysconfig/docker</span><br></pre></td></tr></table></figure>
+
+<p><img src="docker-error.assets/20190626200007379.png" alt=""></p>
+<p>重新启动服务！</p>
+<h3 id="2，启动docker后，docker无法正常search镜像"><a href="#2，启动docker后，docker无法正常search镜像" class="headerlink" title="2，启动docker后，docker无法正常search镜像"></a>2，启动docker后，docker无法正常search镜像</h3><p>报错：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Error response from daemon: Get https://index.docker.io/v1/search?q=openjdk&amp;n=25: dial tcp: looku</span><br></pre></td></tr></table></figure>
+
+<p>在这里我可以改用中国的镜像仓库。</p>
+<p>参考：</p>
+<p>[]: <a href="https://www.docker-cn.com/registry-mirror" target="_blank" rel="noopener">https://www.docker-cn.com/registry-mirror</a></p>
+<p>执行以下命令：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd /etc/docker</span><br></pre></td></tr></table></figure>
+
+<p>找到 docker 默认的配置文件： daemon.json。没有就自行新建。</p>
+<p>我的这个文件里面什么内容也没有。只是在里面加上仓库配置：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "registry-mirrors": ["https://registry.docker-cn.com"]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>重启docker服务</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl docker restart</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="3，启动docker后，docker-无法正常pull镜像"><a href="#3，启动docker后，docker-无法正常pull镜像" class="headerlink" title="3，启动docker后，docker 无法正常pull镜像"></a>3，启动docker后，docker 无法正常pull镜像</h3><p>报错：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Using default tag: latest</span><br><span class="line">Trying to pull repository docker.io/library/centos ...</span><br><span class="line">Get https://registry-1.docker.io/v2/library/centos/manifests/latest: net/http: TLS handshake timeout</span><br></pre></td></tr></table></figure>
+
+<p>第一步：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# yum install bind-utils // 安装dig工具</span><br></pre></td></tr></table></figure>
+
+<p>第二步：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# dig @114.114.114.114 registry-1.docker.io</span><br></pre></td></tr></table></figure>
+
+<p>部分显示如下：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">;registry-1.docker.io. IN A</span><br><span class="line"></span><br><span class="line">;; ANSWER SECTION:</span><br><span class="line"></span><br><span class="line">registry-1.docker.io. 31 IN A 34.206.236.31</span><br><span class="line"></span><br><span class="line">registry-1.docker.io. 31 IN A 54.175.43.85</span><br><span class="line"></span><br><span class="line">registry-1.docker.io. 31 IN A 34.205.207.96</span><br><span class="line"></span><br><span class="line">registry-1.docker.io. 31 IN A 34.233.151.211</span><br><span class="line"></span><br><span class="line">registry-1.docker.io. 31 IN A 52.70.175.131</span><br><span class="line"></span><br><span class="line">registry-1.docker.io. 31 IN A 34.200.28.105</span><br><span class="line"></span><br><span class="line">registry-1.docker.io. 31 IN A 54.165.149.19</span><br><span class="line"></span><br><span class="line">registry-1.docker.io. 31 IN A 34.201.236.93</span><br><span class="line"></span><br><span class="line">;; Query time: 10 msec</span><br><span class="line"></span><br><span class="line">;; SERVER: 114.114.114.114#53(114.114.114.114)</span><br><span class="line"></span><br><span class="line">;; WHEN: Wed Oct 31 11:18:55 CST 2018</span><br><span class="line"></span><br><span class="line">;; MSG SIZE rcvd: 177</span><br></pre></td></tr></table></figure>
+
+<p>选择上面命令执行结果中的一组解析放到本机的/etc/hosts文件里做映射</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# vim /etc/hosts</span><br><span class="line"></span><br><span class="line">54.175.43.85 registry-1.docker.io</span><br></pre></td></tr></table></figure>
+
+<p>再次拉取镜像成功！</p>
+<h3 id="4，拉取镜像后，启动应用时Docker报错-WARNING-IPv4-forwarding-is-disabled-Networking-will-not-work"><a href="#4，拉取镜像后，启动应用时Docker报错-WARNING-IPv4-forwarding-is-disabled-Networking-will-not-work" class="headerlink" title="4，拉取镜像后，启动应用时Docker报错 WARNING: IPv4 forwarding is disabled. Networking will not work."></a>4，拉取镜像后，启动应用时Docker报错 WARNING: IPv4 forwarding is disabled. Networking will not work.</h3><p>出现如下错误</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> docker run --name myMYSQL01 -e MYSQL_ROOT_PASSWORD=123456 -p 3306:3306 -d mysql</span></span><br><span class="line"></span><br><span class="line">WARNING: IPv4 forwarding is disabled. Networking will not work.</span><br></pre></td></tr></table></figure>
+
+<p>解决办法：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> vim  /usr/lib/sysctl.d/00-system.conf</span></span><br></pre></td></tr></table></figure>
+
+<p>添加如下代码：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">net.ipv4.ip_forward=1</span><br></pre></td></tr></table></figure>
+
+<p>重启network：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> systemctl restart network</span></span><br></pre></td></tr></table></figure>
+
+<p>完成以上操作后，就可以删除错误的容器，再次创建新容器，就可以成功启动了！</p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+        <category>docker</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>centos6中docker安装出错了！</title>
+    <url>/2020/02/19/docker-install/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>在Linux系统上安装docker的时候出现了以下的问题，在执行命令yum install docker的时候出现如下错误：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Setting up Install Process</span><br><span class="line">No package docker available.</span><br><span class="line">Error: Nothing to do</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<p>后来查询百度之后，找出了错误，原来是yum没有找到docker包，需要更新epel第三方软件库，即运行如下命令：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum install epel-release</span><br><span class="line">sudo yum install docker-io</span><br></pre></td></tr></table></figure>
+
+<p>然而可能再次出现  “No package docker-io available 错误：无须任何处理”，这次可以使用以下命令安装docker：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum install https:&#x2F;&#x2F;get.docker.com&#x2F;rpm&#x2F;1.7.1&#x2F;centos-6&#x2F;RPMS&#x2F;x86_64&#x2F;docker-engine-1.7.1-1.el6.x86_64.rpm</span><br></pre></td></tr></table></figure>
+
+<p>如果再次出现 ”No package docker-io available 错误：无须任何处理“这个错误，介意换成centos7！！！</p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+        <category>docker</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux在线升级内核  centOS 6+</title>
+    <url>/2020/02/18/Linux-update/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>由于最近在学习docker时候，为了能安装docker服务器，我选择在linux安装，docker安装必须使用</p>
+<p>3.1以上的内核，centOS 6默认是2.6.x，所以我们必须要升级内核才能安装，以下是安装的步骤：</p>
+<a id="more"></a>
+
+<h3 id="1，查看当前centos版本"><a href="#1，查看当前centos版本" class="headerlink" title="1，查看当前centos版本"></a>1，查看当前centos版本</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# cat &#x2F;etc&#x2F;centos-release</span><br></pre></td></tr></table></figure>
+
+<h3 id="2，查看内核版本"><a href="#2，查看内核版本" class="headerlink" title="2，查看内核版本"></a>2，查看内核版本</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# uname -r</span><br></pre></td></tr></table></figure>
+
+<h3 id="3，导入public-key"><a href="#3，导入public-key" class="headerlink" title="3，导入public key"></a>3，导入public key</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@test_serv02 ~]# rpm --import https:&#x2F;&#x2F;www.elrepo.org&#x2F;RPM-GPG-KEY-elrepo.org</span><br></pre></td></tr></table></figure>
+
+<p>如果报错 curl: (6) Couldn’t resolve host ‘<a href="http://www.elrepo.org&#39;" target="_blank" rel="noopener">www.elrepo.org&#39;</a> 则表示DNS解析有问题，需要配置</p>
+<p>vi /etc/sysconfig/network-scripts/ifcfg-eth0</p>
+<p>a/i 进入编辑模式</p>
+<p>在最后面加入下面这两行：</p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">DNS1=<span class="number">114.114</span>.<span class="number">114.114</span></span><br><span class="line">DNS2=<span class="number">8.8</span>.<span class="number">8.8</span></span><br></pre></td></tr></table></figure>
+
+<p>运行这个命令时可能会出现下面这个错误</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#报错：</span><br><span class="line">#curl: (35) SSL connect error </span><br><span class="line">#error: https:&#x2F;&#x2F;www.elrepo.org&#x2F;RPM-GPG-KEY-elrepo.org: import read failed(2).</span><br></pre></td></tr></table></figure>
+
+<p>解决方法可以运行下面这个命令</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum -y update nss</span><br></pre></td></tr></table></figure>
+
+<h3 id="4，安装ELRepo到CentOS-6-x中"><a href="#4，安装ELRepo到CentOS-6-x中" class="headerlink" title="4，安装ELRepo到CentOS-6.x中"></a>4，安装ELRepo到CentOS-6.x中</h3><p>以下我给出3个不同centos版本的安装命令：</p>
+<p>安装 <code>ELRepo for RHEL-5, SL-5 or CentOS-5:</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rpm -Uvh http:&#x2F;&#x2F;www.elrepo.org&#x2F;elrepo-release-5-5.el5.elrepo.noarch.rpm</span><br></pre></td></tr></table></figure>
+
+<p>安装 <code>ELRepo for RHEL-6, SL-6 or CentOS-6:</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rpm -Uvh http:&#x2F;&#x2F;www.elrepo.org&#x2F;elrepo-release-6-8.el6.elrepo.noarch.rpm</span><br></pre></td></tr></table></figure>
+
+<p>安装 <code>ELRepo for RHEL-7, SL-7 or CentOS-7:</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rpm -Uvh http:&#x2F;&#x2F;www.elrepo.org&#x2F;elrepo-release-7.0-2.el7.elrepo.noarch.rpm</span><br></pre></td></tr></table></figure>
+
+<p>执行命令返回以下结果，说明安装成功</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Retrieving http:&#x2F;&#x2F;www.elrepo.org&#x2F;elrepo-release-6-6.el6.elrepo.noarch.rpm</span><br><span class="line">Preparing...                ########################################### [100%]</span><br><span class="line">   1:elrepo-release         ########################################### [100%]</span><br></pre></td></tr></table></figure>
+
+<h3 id="5，安装kernel-lt-或者安装kernel-ml"><a href="#5，安装kernel-lt-或者安装kernel-ml" class="headerlink" title="5，安装kernel-lt 或者安装kernel-ml"></a>5，安装kernel-lt 或者安装kernel-ml</h3><p>安装kernel-lt (lt是long time的意思，会长时间维护)</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# yum --enablerepo&#x3D;elrepo-kernel install kernel-lt</span><br></pre></td></tr></table></figure>
+
+<p>安装kernel-ml (ml=mainline,主线最新版本)</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# yum --enablerepo&#x3D;elrepo-kernel install kernel-ml</span><br></pre></td></tr></table></figure>
+
+<h3 id="6，编辑grub-conf文件，修改Grub引导顺序"><a href="#6，编辑grub-conf文件，修改Grub引导顺序" class="headerlink" title="6，编辑grub.conf文件，修改Grub引导顺序"></a>6，编辑grub.conf文件，修改Grub引导顺序</h3><p>因为一般新安装的内核在第一个位置，所以设置default=0，表示启动新内核</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@test_serv02 member]# vim &#x2F;etc&#x2F;grub.conf</span><br></pre></td></tr></table></figure>
+
+<p>按 <code>i</code> 把 <code>default=1</code>修改为 <code>default=0</code>,按<code>esc</code> 键，输入 <code>：wq</code>保存退出。</p>
+<h3 id="7，重启centos"><a href="#7，重启centos" class="headerlink" title="7，重启centos"></a>7，重启centos</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# reboot</span><br></pre></td></tr></table></figure>
+
+<h3 id="8，查看内核版本"><a href="#8，查看内核版本" class="headerlink" title="8，查看内核版本"></a>8，查看内核版本</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@cyb ~]# uname -r</span><br><span class="line">4.4.214-1.el6.elrepo.i686</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>delete请求解决方法</title>
     <url>/2020/02/12/spring%20boot_delete/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h3 id="springboot2-x中不支持delete请求的解决方案"><a href="#springboot2-x中不支持delete请求的解决方案" class="headerlink" title="springboot2.x中不支持delete请求的解决方案"></a>springboot2.x中不支持delete请求的解决方案</h3><p>最近的一个项目中出现了一个delete请求无法实现的问题，当时出现405异常。异常如下：</p>
@@ -1319,7 +1508,7 @@
     <title>这该死的音乐</title>
     <url>/2020/02/02/music/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h3 id="lt-每日一曲-gt"><a href="#lt-每日一曲-gt" class="headerlink" title="&lt;每日一曲&gt;"></a>&lt;每日一曲&gt;</h3>
-    <div id="aplayer-kMnwEHOF" class="aplayer aplayer-tag-marker meting-tag-marker"
+    <div id="aplayer-zvCKsAKQ" class="aplayer aplayer-tag-marker meting-tag-marker"
          data-id="1368975624" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"
     ></div>
 

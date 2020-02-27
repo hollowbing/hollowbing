@@ -6,7 +6,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    springMVC中处理静态资源问题 |  陈炎彬
+    centos6中docker安装成功后常见的错误 |  陈炎彬
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -33,7 +33,7 @@
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article id="post-springmvc_static_resource" class="article article-type-post" itemscope
+  <article id="post-docker-error" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -41,7 +41,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  springMVC中处理静态资源问题
+  centos6中docker安装成功后常见的错误
 </h1>
   
 
@@ -50,12 +50,12 @@
 
     
     <div class="article-meta">
-      <a href="/2020/02/04/springmvc_static_resource/" class="article-date">
-  <time datetime="2020-02-04T02:07:28.000Z" itemprop="datePublished">2020-02-04</time>
+      <a href="/2020/02/22/docker-error/" class="article-date">
+  <time datetime="2020-02-22T08:35:14.000Z" itemprop="datePublished">2020-02-22</time>
 </a>
       
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/%E6%A1%86%E6%9E%B6/">框架</a>
+    <a class="article-category-link" href="/categories/Linux/">Linux</a> / <a class="article-category-link" href="/categories/Linux/docker/">docker</a>
   </div>
 
       
@@ -65,7 +65,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">276字</span>
+            <span class="post-count">613字</span>
         </span>
     </span>
 
@@ -74,7 +74,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">1分钟</span>
+            <span class="post-count">3分钟</span>
         </span>
     </span>
     <span class="post-time">
@@ -108,19 +108,70 @@
       
 
       
-      <h3 id="处理urlpattern为-时静态资源无法访问的问题"><a href="#处理urlpattern为-时静态资源无法访问的问题" class="headerlink" title="*处理urlpattern为 / 时静态资源无法访问的问题"></a>*处理urlpattern为 / 时静态资源无法访问的问题</h3><h5 id="1，这里的是要访问tomcat的web-xml中对应的Defaultservlet，这个servlet专门处理静态资源"><a href="#1，这里的是要访问tomcat的web-xml中对应的Defaultservlet，这个servlet专门处理静态资源" class="headerlink" title="1，这里的是要访问tomcat的web.xml中对应的Defaultservlet，这个servlet专门处理静态资源"></a>1，这里的是要访问tomcat的web.xml中对应的Defaultservlet，这个servlet专门处理静态资源</h5><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>default<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>*.jpg<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
+      <h3 id="1，docker启动报错：Job-for-docker-service-failed-because-the-control-process-exited-with-error-code-See"><a href="#1，docker启动报错：Job-for-docker-service-failed-because-the-control-process-exited-with-error-code-See" class="headerlink" title="1，docker启动报错：Job for docker.service failed because the control process exited with error code. See"></a>1，docker启动报错：Job for docker.service failed because the control process exited with error code. See</h3><p>参考博客：</p>
+<p>[<a href="https://blog.csdn.net/sammoye/article/details/93771963]" target="_blank" rel="noopener">https://blog.csdn.net/sammoye/article/details/93771963]</a>: </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# systemctl start docker</span><br><span class="line">Job for docker.service failed because the control process exited with error code. See "systemctl status docker.service" and "journalctl -xe" for details.</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<p>根据提示输入：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# systemctl status docker.service</span><br></pre></td></tr></table></figure>
+
+<p>如下图，SELinux is not supported with the overlay2 graph driver on this kernel.</p>
+<p>SELinux不支持此内核上的overlay2图形驱动程序，禁用selinux即可</p>
+<p><img src="docker-error.assets/20190626195510716.png" alt=""></p>
+<p>修改文本内容：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# vim /etc/sysconfig/docker</span><br></pre></td></tr></table></figure>
+
+<p><img src="docker-error.assets/20190626200007379.png" alt=""></p>
+<p>重新启动服务！</p>
+<h3 id="2，启动docker后，docker无法正常search镜像"><a href="#2，启动docker后，docker无法正常search镜像" class="headerlink" title="2，启动docker后，docker无法正常search镜像"></a>2，启动docker后，docker无法正常search镜像</h3><p>报错：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Error response from daemon: Get https://index.docker.io/v1/search?q=openjdk&amp;n=25: dial tcp: looku</span><br></pre></td></tr></table></figure>
+
+<p>在这里我可以改用中国的镜像仓库。</p>
+<p>参考：</p>
+<p>[]: <a href="https://www.docker-cn.com/registry-mirror" target="_blank" rel="noopener">https://www.docker-cn.com/registry-mirror</a></p>
+<p>执行以下命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/docker</span><br></pre></td></tr></table></figure>
+
+<p>找到 docker 默认的配置文件： daemon.json。没有就自行新建。</p>
+<p>我的这个文件里面什么内容也没有。只是在里面加上仓库配置：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "registry-mirrors": ["https://registry.docker-cn.com"]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>重启docker服务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl docker restart</span><br></pre></td></tr></table></figure>
 
 
 
-  <a id="more"></a>
-<hr>
-<h5 id="2，需要在springmvc-xml中加入mvc约束"><a href="#2，需要在springmvc-xml中加入mvc约束" class="headerlink" title="2，需要在springmvc.xml中加入mvc约束"></a>2，需要在springmvc.xml中加入mvc约束</h5><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">xmlns:mvc="http://www.springframework.org/schema/mvc"</span><br><span class="line"></span><br><span class="line">http://www.springframework.org/schema/mvc</span><br><span class="line">http://www.springframework.org/schema/spring-mvc.xsd</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">mvc:default-servlet-handler</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="3，启动docker后，docker-无法正常pull镜像"><a href="#3，启动docker后，docker-无法正常pull镜像" class="headerlink" title="3，启动docker后，docker 无法正常pull镜像"></a>3，启动docker后，docker 无法正常pull镜像</h3><p>报错：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Using default tag: latest</span><br><span class="line">Trying to pull repository docker.io/library/centos ...</span><br><span class="line">Get https://registry-1.docker.io/v2/library/centos/manifests/latest: net/http: TLS handshake timeout</span><br></pre></td></tr></table></figure>
 
-<p>这个标签会将对静态资源的访问请求通过HandlerMapper映射到默认的Servlet请求处理器DefaultServletHttpRequestHandler对象，而该处理器调用了tomcat的DefaultServlet来处理静态资源的访问请求</p>
-<h5 id="3，需要在springmvc-xml中加入mvc约束"><a href="#3，需要在springmvc-xml中加入mvc约束" class="headerlink" title="3，需要在springmvc.xml中加入mvc约束"></a>3，需要在springmvc.xml中加入mvc约束</h5><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">xmlns:mvc="http://www.springframework.org/schema/mvc"</span><br><span class="line"></span><br><span class="line">http://www.springframework.org/schema/mvc</span><br><span class="line">http://www.springframework.org/schema/spring-mvc.xsd</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">mvc:resources</span> <span class="attr">location</span>=<span class="string">"/images/"</span> <span class="attr">mapping</span>=<span class="string">"/images/**"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>第一步：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# yum install bind-utils // 安装dig工具</span><br></pre></td></tr></table></figure>
 
-<p>spring中专门用于处理静态资源访问请求的处理器ResourcesHttpRequestHandler,并添加了<a href="mvc:resources/">mvc:resources/</a>标签，专门用于解决静态资源无法访问问题。需要在springmvc.xml中配置在spring3.0.4版本后，</p>
-<p><strong>location表示静态资源所在目录</strong><br><strong>mapping表示对该资源的请求</strong></p>
+<p>第二步：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# dig @114.114.114.114 registry-1.docker.io</span><br></pre></td></tr></table></figure>
+
+<p>部分显示如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">;registry-1.docker.io. IN A</span><br><span class="line"></span><br><span class="line">;; ANSWER SECTION:</span><br><span class="line"></span><br><span class="line">registry-1.docker.io. 31 IN A 34.206.236.31</span><br><span class="line"></span><br><span class="line">registry-1.docker.io. 31 IN A 54.175.43.85</span><br><span class="line"></span><br><span class="line">registry-1.docker.io. 31 IN A 34.205.207.96</span><br><span class="line"></span><br><span class="line">registry-1.docker.io. 31 IN A 34.233.151.211</span><br><span class="line"></span><br><span class="line">registry-1.docker.io. 31 IN A 52.70.175.131</span><br><span class="line"></span><br><span class="line">registry-1.docker.io. 31 IN A 34.200.28.105</span><br><span class="line"></span><br><span class="line">registry-1.docker.io. 31 IN A 54.165.149.19</span><br><span class="line"></span><br><span class="line">registry-1.docker.io. 31 IN A 34.201.236.93</span><br><span class="line"></span><br><span class="line">;; Query time: 10 msec</span><br><span class="line"></span><br><span class="line">;; SERVER: 114.114.114.114#53(114.114.114.114)</span><br><span class="line"></span><br><span class="line">;; WHEN: Wed Oct 31 11:18:55 CST 2018</span><br><span class="line"></span><br><span class="line">;; MSG SIZE rcvd: 177</span><br></pre></td></tr></table></figure>
+
+<p>选择上面命令执行结果中的一组解析放到本机的/etc/hosts文件里做映射</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# vim /etc/hosts</span><br><span class="line"></span><br><span class="line">54.175.43.85 registry-1.docker.io</span><br></pre></td></tr></table></figure>
+
+<p>再次拉取镜像成功！</p>
+<h3 id="4，拉取镜像后，启动应用时Docker报错-WARNING-IPv4-forwarding-is-disabled-Networking-will-not-work"><a href="#4，拉取镜像后，启动应用时Docker报错-WARNING-IPv4-forwarding-is-disabled-Networking-will-not-work" class="headerlink" title="4，拉取镜像后，启动应用时Docker报错 WARNING: IPv4 forwarding is disabled. Networking will not work."></a>4，拉取镜像后，启动应用时Docker报错 WARNING: IPv4 forwarding is disabled. Networking will not work.</h3><p>出现如下错误</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> docker run --name myMYSQL01 -e MYSQL_ROOT_PASSWORD=123456 -p 3306:3306 -d mysql</span></span><br><span class="line"></span><br><span class="line">WARNING: IPv4 forwarding is disabled. Networking will not work.</span><br></pre></td></tr></table></figure>
+
+<p>解决办法：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> vim  /usr/lib/sysctl.d/00-system.conf</span></span><br></pre></td></tr></table></figure>
+
+<p>添加如下代码：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net.ipv4.ip_forward=1</span><br></pre></td></tr></table></figure>
+
+<p>重启network：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> systemctl restart network</span></span><br></pre></td></tr></table></figure>
+
+<p>完成以上操作后，就可以删除错误的容器，再次创建新容器，就可以成功启动了！</p>
 
       
       <!-- 打赏 -->
@@ -131,10 +182,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hollowbing.github.io/2020/02/04/springmvc_static_resource/" data-id="ck74f6c2r000avkukgt2cat2c"
+      <a data-url="https://hollowbing.github.io/2020/02/22/docker-error/" data-id="ck74f6c2l0006vkukafswbzpk"
         class="article-share-link">分享</a>
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/" rel="tag">docker</a></li></ul>
 
     </footer>
 
@@ -144,19 +195,19 @@
   
   <nav class="article-nav">
     
-      <a href="/2020/02/05/Spring%20Boot/" class="article-nav-link">
+      <a href="/2020/02/24/spring%20boot_init_mode/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            springboot知识点
+            springboot学习笔记——之jdbc连接配置自动建表
           
         </div>
       </a>
     
     
-      <a href="/2020/02/02/web_route/" class="article-nav-link">
+      <a href="/2020/02/19/docker-install/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">web中请求路径的问题</div>
+        <div class="article-nav-title">centos6中docker安装出错了！</div>
       </a>
     
   </nav>

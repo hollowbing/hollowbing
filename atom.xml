@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hollowbing.github.io/"/>
-  <updated>2020-02-17T03:15:12.754Z</updated>
+  <updated>2020-02-26T09:01:07.328Z</updated>
   <id>https://hollowbing.github.io/</id>
   
   <author>
@@ -15,6 +15,106 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>springboot学习笔记——之jdbc连接配置自动建表</title>
+    <link href="https://hollowbing.github.io/2020/02/24/spring%20boot_init_mode/"/>
+    <id>https://hollowbing.github.io/2020/02/24/spring%20boot_init_mode/</id>
+    <published>2020-02-24T14:10:43.000Z</published>
+    <updated>2020-02-26T09:01:07.328Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本人采用的是springboot2.2.4版本，本次笔记主要是记录一个2.x版本之后一个关于schema配置，initialization-mode: always ，该配置主要的作用是为了使classpath下存放的sql文件自动执行插入数据库.&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="后端" scheme="https://hollowbing.github.io/categories/%E5%90%8E%E7%AB%AF/"/>
+    
+      <category term="框架" scheme="https://hollowbing.github.io/categories/%E5%90%8E%E7%AB%AF/%E6%A1%86%E6%9E%B6/"/>
+    
+      <category term="springboot" scheme="https://hollowbing.github.io/categories/%E5%90%8E%E7%AB%AF/%E6%A1%86%E6%9E%B6/springboot/"/>
+    
+    
+      <category term="后端" scheme="https://hollowbing.github.io/tags/%E5%90%8E%E7%AB%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>centos6中docker安装成功后常见的错误</title>
+    <link href="https://hollowbing.github.io/2020/02/22/docker-error/"/>
+    <id>https://hollowbing.github.io/2020/02/22/docker-error/</id>
+    <published>2020-02-22T08:35:14.000Z</published>
+    <updated>2020-02-23T08:21:39.199Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;1，docker启动报错：Job-for-docker-service-failed-because-the-control-process-exited-with-error-code-See&quot;&gt;&lt;a href=&quot;#1，docker启动报错：Job-for-docker-service-failed-because-the-control-process-exited-with-error-code-See&quot; class=&quot;headerlink&quot; title=&quot;1，docker启动报错：Job for docker.service failed because the control process exited with error code. See&quot;&gt;&lt;/a&gt;1，docker启动报错：Job for docker.service failed because the control process exited with error code. See&lt;/h3&gt;&lt;p&gt;参考博客：&lt;/p&gt;
+&lt;p&gt;[&lt;a href=&quot;https://blog.csdn.net/sammoye/article/details/93771963]&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/sammoye/article/details/93771963]&lt;/a&gt;: &lt;/p&gt;
+&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[root@localhost ~]# systemctl start docker&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Job for docker.service failed because the control process exited with error code. See &quot;systemctl status docker.service&quot; and &quot;journalctl -xe&quot; for details.&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+    
+      <category term="Linux" scheme="https://hollowbing.github.io/categories/Linux/"/>
+    
+      <category term="docker" scheme="https://hollowbing.github.io/categories/Linux/docker/"/>
+    
+    
+      <category term="Linux" scheme="https://hollowbing.github.io/tags/Linux/"/>
+    
+      <category term="docker" scheme="https://hollowbing.github.io/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>centos6中docker安装出错了！</title>
+    <link href="https://hollowbing.github.io/2020/02/19/docker-install/"/>
+    <id>https://hollowbing.github.io/2020/02/19/docker-install/</id>
+    <published>2020-02-19T02:05:34.000Z</published>
+    <updated>2020-02-24T05:57:50.526Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在Linux系统上安装docker的时候出现了以下的问题，在执行命令yum install docker的时候出现如下错误：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Setting up Install Process&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;No package docker available.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Error: Nothing to do&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+    
+      <category term="Linux" scheme="https://hollowbing.github.io/categories/Linux/"/>
+    
+      <category term="docker" scheme="https://hollowbing.github.io/categories/Linux/docker/"/>
+    
+    
+      <category term="Linux" scheme="https://hollowbing.github.io/tags/Linux/"/>
+    
+      <category term="docker" scheme="https://hollowbing.github.io/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux在线升级内核  centOS 6+</title>
+    <link href="https://hollowbing.github.io/2020/02/18/Linux-update/"/>
+    <id>https://hollowbing.github.io/2020/02/18/Linux-update/</id>
+    <published>2020-02-18T15:20:50.000Z</published>
+    <updated>2020-02-21T13:27:36.558Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;由于最近在学习docker时候，为了能安装docker服务器，我选择在linux安装，docker安装必须使用&lt;/p&gt;
+&lt;p&gt;3.1以上的内核，centOS 6默认是2.6.x，所以我们必须要升级内核才能安装，以下是安装的步骤：&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Linux" scheme="https://hollowbing.github.io/categories/Linux/"/>
+    
+    
+      <category term="Linux" scheme="https://hollowbing.github.io/tags/Linux/"/>
+    
+  </entry>
   
   <entry>
     <title>delete请求解决方法</title>
@@ -122,7 +222,7 @@
     <link href="https://hollowbing.github.io/2020/02/02/music/"/>
     <id>https://hollowbing.github.io/2020/02/02/music/</id>
     <published>2020-02-02T12:00:00.000Z</published>
-    <updated>2020-02-14T07:16:38.318Z</updated>
+    <updated>2020-02-27T07:21:33.839Z</updated>
     
     <summary type="html">
     
